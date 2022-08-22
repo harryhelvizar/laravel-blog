@@ -34,6 +34,7 @@ Route::get('/post/create', [PostController::class, 'create'])->name('post.create
 Route::post('/post', [PostController::class, 'store'])->name('post.store');
 Route::get('/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
 
 //User
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');

@@ -11,35 +11,12 @@
             <div class="card-body">
             <h3 class="card-title"><strong>{{ $item->judul }}</strong></h3>
             <p class="card-text">{{ $item->content }}</p>
-            <a href="#" class="btn btn-primary">Show</a>
+            <a href="{{ route('post.show', $item->id) }}" class="btn btn-primary">Show</a>
             <a href="{{ route('post.edit', $item->id) }}" class="btn btn-success">Edit</a>
             </div>
         </div>
         @endforeach
     </div>        
-    
-    {{-- <table class="table">
-        <thead>
-            <tr>
-                <th>judul</th>
-                <th>slug</th>
-                <th>kategori</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($post as $item)
-            <tr>
-                <td>{{ $item->judul }}</td>
-                <td>{{ $item->slug }}</td>
-                <td>{{ $item->categories_id }}</td>
-                <td>
-                    <a href="{{ route('post.edit', $item->id) }}" class="btn btn-primary">edit</a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
 
 
 @endsection

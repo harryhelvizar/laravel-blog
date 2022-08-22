@@ -85,4 +85,11 @@ class PostController extends Controller
             //throw $th;
         }
     }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+        // dd($post);
+        return view('post.show', compact('post'));
+    }
 }
