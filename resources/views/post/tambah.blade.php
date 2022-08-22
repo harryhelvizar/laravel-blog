@@ -33,7 +33,7 @@
 
             <div class="col-md-5 mt-3">
                 <button type="submit" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('post.index') }}" type="submit" class="btn btn-secondary">Close</a>
             </div>
         </div>
     </form>

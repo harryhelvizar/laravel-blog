@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use File;
 
 class PostController extends Controller
 {
@@ -61,10 +62,15 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $category = Category::get();
 
         return view('post.edit', compact([
-            'post'
+            'post', 'category'
         ]));
+
+        // return view('post.edit', [
+        //     'post' => $post, 'category' => $category
+        // ]);
     }
 
     public function update($id, Request $request)
@@ -75,11 +81,32 @@ class PostController extends Controller
         $request->validate([
             'judul' => 'required',
             'slug' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'image' => 'image|mimes:jpg,jpeg,png',
+            'categories_id' => 'required'
         ]);
 
+        $post = Post::find($id);
+
+        if ($request->has('image')) {
+            $path = 'image/';
+            File::delete($path . $post->image);
+
+            $fileName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('image'), $fileName);
+
+            $post->image = $fileName;
+
+            $post->save();
+        }
+
+        $post->judul = $request['judul'];
+        $post->slug = $request['slug'];
+        $post->content = $request['content'];
+        $post->categories_id = $request['categories_id'];
+
         try {
-            $post->update($data);
+            $post->save();
             return redirect()->route('post.index');
         } catch (\Throwable $th) {
             //throw $th;
